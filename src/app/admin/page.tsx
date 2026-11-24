@@ -93,50 +93,54 @@ async function DraftQueue() {
 
 function PendingDraft({ draft }: { draft: WelcomeDraft }) {
   return (
-    <form
-      action={approveWelcomeDraftAction}
-      className="rounded-2xl border border-stone-200 bg-white p-6"
-    >
-      <input type="hidden" name="id" value={draft.id} />
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
+    <details open className="group rounded-2xl border border-stone-200 bg-white p-6">
+      <summary className="flex cursor-pointer list-none flex-wrap items-baseline justify-between gap-2">
         <p className="font-semibold">{draft.businessName}</p>
-        <p className="text-sm text-stone-500">
-          {draft.email} · {getAudienceLabel(draft.audience)}
-        </p>
-      </div>
-
-      {draft.agentNote && (
-        <div className="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
-          <span className="font-medium">Note from the agent: </span>
-          {draft.agentNote}
+        <div className="flex items-baseline gap-3">
+          <p className="text-sm text-stone-500">
+            {draft.email} · {getAudienceLabel(draft.audience)}
+          </p>
+          <span className="text-sm text-stone-400 group-open:hidden">Show</span>
+          <span className="hidden text-sm text-stone-400 group-open:inline">Hide</span>
         </div>
-      )}
+      </summary>
 
-      <label htmlFor={`subject-${draft.id}`} className="mt-5 block text-sm font-medium">
-        Subject
-      </label>
-      <input
-        id={`subject-${draft.id}`}
-        name="subject"
-        defaultValue={draft.subject}
-        className="input mt-1"
-      />
+      <form action={approveWelcomeDraftAction}>
+        <input type="hidden" name="id" value={draft.id} />
 
-      <label htmlFor={`body-${draft.id}`} className="mt-4 block text-sm font-medium">
-        Email
-      </label>
-      <textarea
-        id={`body-${draft.id}`}
-        name="body"
-        defaultValue={draft.body}
-        rows={10}
-        className="input mt-1 leading-relaxed"
-      />
+        {draft.agentNote && (
+          <div className="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <span className="font-medium">Note from the agent: </span>
+            {draft.agentNote}
+          </div>
+        )}
 
-      <div className="mt-5 flex justify-end">
-        <SubmitButton pendingLabel="Approving…">Approve and send</SubmitButton>
-      </div>
-    </form>
+        <label htmlFor={`subject-${draft.id}`} className="mt-5 block text-sm font-medium">
+          Subject
+        </label>
+        <input
+          id={`subject-${draft.id}`}
+          name="subject"
+          defaultValue={draft.subject}
+          className="input mt-1"
+        />
+
+        <label htmlFor={`body-${draft.id}`} className="mt-4 block text-sm font-medium">
+          Email
+        </label>
+        <textarea
+          id={`body-${draft.id}`}
+          name="body"
+          defaultValue={draft.body}
+          rows={10}
+          className="input mt-1 leading-relaxed"
+        />
+
+        <div className="mt-5 flex justify-end">
+          <SubmitButton pendingLabel="Approving…">Approve and send</SubmitButton>
+        </div>
+      </form>
+    </details>
   );
 }
 
