@@ -37,21 +37,23 @@ You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com)
 
 3. Create the tables: open your Supabase project's SQL editor and run [`supabase/schema.sql`](supabase/schema.sql).
 
-4. In [`trigger.config.ts`](trigger.config.ts), replace the `project` value with your own Trigger.dev project ref. It starts with `proj_` and is in your project's settings.
+4. In Clerk, under **User & authentication**, turn on **First and last name**. The welcome email greets people by first name.
 
-5. Start the app and the Trigger.dev dev server, in two terminals. Keep `pnpm dev:trigger` running from a signup until its welcome is approved: in dev, the waiting run lives in that process.
+5. In [`trigger.config.ts`](trigger.config.ts), replace the `project` value with your own Trigger.dev project ref. It starts with `proj_` and is in your project's settings.
+
+6. Start the app and the Trigger.dev dev server, in two terminals. Keep `pnpm dev:trigger` running from a signup until its welcome is approved: in dev, the waiting run lives in that process.
 
    ```bash
    pnpm dev
    pnpm dev:trigger
    ```
 
-6. Connect Clerk to the webhook:
+7. Connect Clerk to the webhook:
    1. In the Trigger.dev dashboard, open **Webhooks**, select the `clerk` endpoint and copy its webhook URL.
    2. In the Clerk dashboard, open **Webhooks**, add an endpoint with that URL and subscribe it to `user.created`.
    3. Copy the endpoint's signing secret (it starts with `whsec_`) and paste it into **Set signing secret** on the Trigger.dev endpoint.
 
-7. Invite yourself as an admin (see below), then sign up at http://localhost:3000 with a different email address.
+8. Invite yourself as an admin (see below), then sign up at http://localhost:3000 with a different email address.
 
 ## Environment variables
 
