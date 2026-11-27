@@ -70,6 +70,9 @@ You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com)
 | `ZEPTOMAIL_TOKEN`                   | ZeptoMail → your Mail Agent → SMTP/API → Send Mail token                                    |
 | `ZEPTOMAIL_FROM_ADDRESS`            | An address on a domain you've verified in ZeptoMail                                          |
 | `ZEPTOMAIL_FROM_NAME`               | The sender name, e.g. `Brandnote`                                                           |
+| `TRIGGER_SECRET_KEY` | Added in the tutorial's Step 2. Trigger.dev → API keys, with **Waitpoints: Read and write** access |
+| `GOOGLE_GENERATIVE_AI_API_KEY` | Added in the tutorial's Step 5. Google AI Studio → Get API key |
+| `GEMINI_MODEL` | Optional, from the tutorial's Step 5. Defaults to `gemini-3.8-flash` |
 
 ## Make yourself an admin
 
