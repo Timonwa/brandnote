@@ -1,13 +1,13 @@
-# Brandnote (starter)
+# Clerk onboarding agent (starter)
 
 Brandnote is a demo AI marketing app. This branch is the app **before** the AI agent: people can sign up with their website, and admins can approve welcome emails, but nothing reads the site or writes the email yet. The Trigger.dev tutorial builds that agent on top of this branch.
 
 ## Branches
 
-| Branch    | What's in it                                                                                                                           |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Branch    | What's in it                                                                                                                            |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `starter` | The app without the agent: Clerk sign-up, the workspace page, the admin approval page and the Supabase tables. Start the tutorial here. |
-| `main`    | The finished project, with the Trigger.dev webhook and the onboarding agent.                                                           |
+| `main`    | The finished project, with the Trigger.dev webhook and the onboarding agent.                                                            |
 
 ## What's here
 
@@ -18,7 +18,7 @@ Brandnote is a demo AI marketing app. This branch is the app **before** the AI a
 - **Ready-made helpers the agent will use:**
   - [`src/lib/welcome-templates.ts`](src/lib/welcome-templates.ts): the welcome email's structure and the "how we help" line for each role.
   - [`src/lib/read-page.ts`](src/lib/read-page.ts): fetches a web page and returns its text and links.
-  - [`src/lib/email.ts`](src/lib/email.ts): sends an email through ZeptoMail.
+  - [`src/lib/email.ts`](src/lib/email.ts): sends an email through Zoho CPaaS.
   - [`src/lib/workspaces.ts`](src/lib/workspaces.ts) and [`src/lib/welcome-drafts.ts`](src/lib/welcome-drafts.ts): save the agent's work.
 
 ## What the tutorial adds
@@ -30,7 +30,7 @@ Brandnote is a demo AI marketing app. This branch is the app **before** the AI a
 
 ## Quickstart
 
-You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com), [Supabase](https://supabase.com) and [ZeptoMail](https://www.zoho.com/zeptomail/).
+You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com), [Supabase](https://supabase.com) and [Zoho CPaaS](https://www.zoho.com/cpaas/).
 
 1. Install dependencies:
 
@@ -58,21 +58,21 @@ You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com)
 
 ## Environment variables
 
-| Variable                            | Where to find it                                                                            |
-| ----------------------------------- | ------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk dashboard → API keys                                                                  |
-| `CLERK_SECRET_KEY`                  | Clerk dashboard → API keys                                                                  |
-| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`     | Leave as `/sign-in`                                                                         |
-| `NEXT_PUBLIC_CLERK_SIGN_UP_URL`     | Leave as `/sign-up`                                                                         |
-| `SUPABASE_URL`                      | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_URL`                   |
-| `SUPABASE_SECRET_KEY`               | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_SECRET_KEY`            |
-| `APP_URL`                           | Where the app runs; defaults to `http://localhost:3000`. Used in invitation and email links. |
-| `ZEPTOMAIL_TOKEN`                   | ZeptoMail → your Mail Agent → SMTP/API → Send Mail token                                    |
-| `ZEPTOMAIL_FROM_ADDRESS`            | An address on a domain you've verified in ZeptoMail                                          |
-| `ZEPTOMAIL_FROM_NAME`               | The sender name, e.g. `Brandnote`                                                           |
-| `TRIGGER_SECRET_KEY` | Added in the tutorial's Step 3. Trigger.dev → API keys, with **Waitpoints: Read and write** access |
-| `GOOGLE_GENERATIVE_AI_API_KEY` | Added in the tutorial's Step 7. Google AI Studio → Get API key |
-| `GEMINI_MODEL` | Optional, from the tutorial's Step 7. Defaults to `gemini-3.8-flash` |
+| Variable                            | Where to find it                                                                                   |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk dashboard → API keys                                                                         |
+| `CLERK_SECRET_KEY`                  | Clerk dashboard → API keys                                                                         |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`     | Leave as `/sign-in`                                                                                |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_URL`     | Leave as `/sign-up`                                                                                |
+| `SUPABASE_URL`                      | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_URL`                          |
+| `SUPABASE_SECRET_KEY`               | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_SECRET_KEY`                   |
+| `APP_URL`                           | Where the app runs; defaults to `http://localhost:3000`. Used in invitation and email links.       |
+| `ZOHO_CPAAS_TOKEN`                  | Zoho CPaaS → your Mail Agent → SMTP/API → Send Mail token                                          |
+| `ZOHO_CPAAS_FROM_ADDRESS`           | An address on a domain you've verified in Zoho CPaaS                                               |
+| `ZOHO_CPAAS_FROM_NAME`              | The sender name, e.g. `Brandnote`                                                                  |
+| `TRIGGER_SECRET_KEY`                | Added in the tutorial's Step 3. Trigger.dev → API keys, with **Waitpoints: Read and write** access |
+| `GOOGLE_GENERATIVE_AI_API_KEY`      | Added in the tutorial's Step 7. Google AI Studio → Get API key                                     |
+| `GEMINI_MODEL`                      | Optional, from the tutorial's Step 7. Defaults to `gemini-3.8-flash`                               |
 
 ## Make yourself an admin
 

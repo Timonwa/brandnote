@@ -1,4 +1,4 @@
-import { SendMailClient } from "zeptomail";
+import { SendMailClient } from "zohocpaas";
 
 function escapeHtml(text: string): string {
   return text
@@ -21,10 +21,10 @@ export async function sendEmail(input: {
   subject: string;
   text: string;
 }) {
-  const token = process.env.ZEPTOMAIL_TOKEN;
-  const fromAddress = process.env.ZEPTOMAIL_FROM_ADDRESS;
+  const token = process.env.ZOHO_CPAAS_TOKEN;
+  const fromAddress = process.env.ZOHO_CPAAS_FROM_ADDRESS;
   if (!token || !fromAddress) {
-    throw new Error("Set ZEPTOMAIL_TOKEN and ZEPTOMAIL_FROM_ADDRESS to send email");
+    throw new Error("Set ZOHO_CPAAS_TOKEN and ZOHO_CPAAS_FROM_ADDRESS to send email");
   }
 
   // The SDK sends the token as the whole Authorization header, prefix included.
@@ -33,12 +33,12 @@ export async function sendEmail(input: {
     : `Zoho-enczapikey ${token}`;
 
   const client = new SendMailClient({
-    url: process.env.ZEPTOMAIL_URL ?? "api.zeptomail.com/",
+    url: process.env.ZOHO_CPAAS_URL ?? "api.zeptomail.com/",
     token: authorization,
   });
 
   await client.sendMail({
-    from: { address: fromAddress, name: process.env.ZEPTOMAIL_FROM_NAME ?? "Brandnote" },
+    from: { address: fromAddress, name: process.env.ZOHO_CPAAS_FROM_NAME ?? "Brandnote" },
     to: [{ email_address: { address: input.to, name: input.toName } }],
     subject: input.subject,
     textbody: input.text,
