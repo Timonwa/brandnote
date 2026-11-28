@@ -1,4 +1,4 @@
-# Brandnote
+# Clerk onboarding agent
 
 Brandnote is a demo AI marketing app. When someone signs up with their website, a Clerk webhook starts an AI agent on Trigger.dev. The agent reads their site, sets up their brand profile, brand voice and customer profiles, and drafts a welcome email that waits for an admin to approve it before it's sent.
 
@@ -6,10 +6,10 @@ It's the example project for a Trigger.dev tutorial on building an onboarding ag
 
 ## Branches
 
-| Branch    | What's in it                                                                                                                           |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Branch    | What's in it                                                                                                                            |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | `starter` | The app without the agent: Clerk sign-up, the workspace page, the admin approval page and the Supabase tables. Start the tutorial here. |
-| `main`    | The finished project, with the Trigger.dev webhook and the onboarding agent.                                                           |
+| `main`    | The finished project, with the Trigger.dev webhook and the onboarding agent.                                                            |
 
 ## How it works
 
@@ -17,11 +17,11 @@ It's the example project for a Trigger.dev tutorial on building an onboarding ag
 2. Clerk sends `user.created` to a Trigger.dev webhook ([`src/trigger/clerk-webhook.ts`](src/trigger/clerk-webhook.ts)), which starts the onboarding agent with just the user's ID.
 3. The agent ([`src/trigger/onboard-new-user.ts`](src/trigger/onboard-new-user.ts)) fetches the user from Clerk, reads up to five pages of their site, and saves their brand profile, brand voice and customer profiles.
 4. It writes a welcome email from the template for their audience ([`src/lib/welcome-templates.ts`](src/lib/welcome-templates.ts)) and pauses on a wait token.
-5. An admin edits and approves the draft on `/admin`, which completes the token. The agent wakes up and sends the email with ZeptoMail.
+5. An admin edits and approves the draft on `/admin`, which completes the token. The agent wakes up and sends the email with Zoho CPaaS.
 
 ## Quickstart
 
-You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com), [Supabase](https://supabase.com), [Trigger.dev](https://trigger.dev), [Google AI Studio](https://aistudio.google.com) (for a Gemini API key) and [ZeptoMail](https://www.zoho.com/zeptomail/).
+You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com), [Supabase](https://supabase.com), [Trigger.dev](https://trigger.dev), [Google AI Studio](https://aistudio.google.com) (for a Gemini API key) and [Zoho CPaaS](https://www.zoho.com/cpaas/).
 
 1. Install dependencies:
 
@@ -57,20 +57,20 @@ You need Node.js 22 or later, pnpm, and accounts with [Clerk](https://clerk.com)
 
 ## Environment variables
 
-| Variable                            | Where to find it                                                                              |
-| ----------------------------------- | --------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk dashboard → API keys                                                                    |
-| `CLERK_SECRET_KEY`                  | Clerk dashboard → API keys                                                                    |
-| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`     | Leave as `/sign-in`                                                                           |
-| `NEXT_PUBLIC_CLERK_SIGN_UP_URL`     | Leave as `/sign-up`                                                                           |
-| `SUPABASE_URL` | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_URL` |
-| `SUPABASE_SECRET_KEY` | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_SECRET_KEY` |
-| `APP_URL`                           | Where the app runs; defaults to `http://localhost:3000`. Used in invitation and email links.   |
-| `TRIGGER_SECRET_KEY`                | Trigger.dev → API keys. Needs **Waitpoints: Read and write** (the Operator preset has it).     |
-| `GOOGLE_GENERATIVE_AI_API_KEY`      | Google AI Studio → Get API key                                                                |
-| `ZEPTOMAIL_TOKEN`                   | ZeptoMail → your Mail Agent → SMTP/API → Send Mail token                                      |
-| `ZEPTOMAIL_FROM_ADDRESS`            | An address on a domain you've verified in ZeptoMail                                            |
-| `ZEPTOMAIL_FROM_NAME`               | The sender name, e.g. `Brandnote`                                                             |
+| Variable                            | Where to find it                                                                             |
+| ----------------------------------- | -------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` | Clerk dashboard → API keys                                                                   |
+| `CLERK_SECRET_KEY`                  | Clerk dashboard → API keys                                                                   |
+| `NEXT_PUBLIC_CLERK_SIGN_IN_URL`     | Leave as `/sign-in`                                                                          |
+| `NEXT_PUBLIC_CLERK_SIGN_UP_URL`     | Leave as `/sign-up`                                                                          |
+| `SUPABASE_URL`                      | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_URL`                    |
+| `SUPABASE_SECRET_KEY`               | Supabase → **Connect** (top of the project) → **Server** → `SUPABASE_SECRET_KEY`             |
+| `APP_URL`                           | Where the app runs; defaults to `http://localhost:3000`. Used in invitation and email links. |
+| `TRIGGER_SECRET_KEY`                | Trigger.dev → API keys. Needs **Waitpoints: Read and write** (the Operator preset has it).   |
+| `GOOGLE_GENERATIVE_AI_API_KEY`      | Google AI Studio → Get API key                                                               |
+| `ZOHO_CPAAS_TOKEN`                  | Zoho CPaaS → your Mail Agent → SMTP/API → Send Mail token                                    |
+| `ZOHO_CPAAS_FROM_ADDRESS`           | An address on a domain you've verified in Zoho CPaaS                                         |
+| `ZOHO_CPAAS_FROM_NAME`              | The sender name, e.g. `Brandnote`                                                            |
 
 ## Make yourself an admin
 
@@ -93,16 +93,16 @@ Use a different email address from the one you test sign-ups with.
 - **Trigger.dev** for the Clerk webhook, the agent's run, and the wait for approval.
 - **AI SDK** with **Gemini**. Every model and tool call shows as a span in the Trigger.dev run trace.
 - **Supabase** stores workspaces and welcome drafts. In your own product, this is your database.
-- **ZeptoMail** sends the approved welcome email.
+- **Zoho CPaaS** sends the approved welcome email.
 
 ## Scripts
 
-| Script                      | What it does                       |
-| --------------------------- | ---------------------------------- |
-| `pnpm dev`                  | Starts the app on port 3000        |
-| `pnpm dev:trigger`          | Starts the Trigger.dev dev server  |
-| `pnpm build`                | Builds the app for production      |
-| `pnpm lint`                 | Runs ESLint                        |
+| Script                      | What it does                                    |
+| --------------------------- | ----------------------------------------------- |
+| `pnpm dev`                  | Starts the app on port 3000                     |
+| `pnpm dev:trigger`          | Starts the Trigger.dev dev server               |
+| `pnpm build`                | Builds the app for production                   |
+| `pnpm lint`                 | Runs ESLint                                     |
 | `pnpm invite-admin <email>` | Creates an admin invitation and prints its link |
 
 ## License
